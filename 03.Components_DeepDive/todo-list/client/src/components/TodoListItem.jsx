@@ -1,6 +1,5 @@
 import styles from './TodoListItem.module.css';
 
-/* eslint-disable react/prop-types */
 export default function TodoListItem({
     _id,
     text, 
