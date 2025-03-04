@@ -13,7 +13,7 @@ export default function UseerListItem(props) {
                 <td>{props.lastName}</td>
                 <td>{props.email}</td>
                 <td>{props.phoneNumber}</td>
-                <td>{moment(props.createdAt).format('DD/MM/YYYY')}</td>
+                <td>{moment(props.createdAt).format('MMM DD YYYY h:mm A')}</td>
 
                 <td className="actions">
                     <button className="btn edit-btn" title="Edit">
