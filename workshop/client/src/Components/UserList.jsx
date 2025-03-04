@@ -11,14 +11,31 @@ export default function UserList() {
 
   useEffect(() => {
     userService.getAll()
-    .then(result => {
-      setUsers(result);
-    })
+      .then(result => {
+        setUsers(result);
+      })
   }, []);
 
 
-  const addUserClickHandler = () => {
+  const createUserClickHandler = () => {
     setShowUserCreate(true);
+  }
+
+  const closeCreateUserHandler = () => {
+    setShowUserCreate(false);
+  }
+
+  const saveCreateUserHandler = async (e) => {
+    e.preventDefault();
+  
+    const formData = new FormData(e.target);
+    const userData = Object.fromEntries(formData);
+
+    const newUser= await userService.create(userData);
+    
+    setUsers(state => [ ...state, newUser ]);
+    setShowUserCreate(false);
+
   }
   return (
     <>
@@ -26,7 +43,11 @@ export default function UserList() {
 
         <Search />
 
-        {showUserCreate && <UserCreate />}
+        {showUserCreate &&
+          <UserCreate
+            onClose={closeCreateUserHandler}
+            onSave={saveCreateUserHandler}
+          />}
 
         <div className="table-wrapper">
           <div>
@@ -162,7 +183,7 @@ export default function UserList() {
           </table>
         </div>
 
-        <button className="btn-add btn" onClick={addUserClickHandler}>Add new user</button>
+        <button className="btn-add btn" onClick={createUserClickHandler}>Add new user</button>
 
         <Pagination />
 
