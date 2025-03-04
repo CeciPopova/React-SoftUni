@@ -6,6 +6,5 @@ export default {
         const result = await res.json();
         const users = Object.values(result);
         return users;
-
     }
 }

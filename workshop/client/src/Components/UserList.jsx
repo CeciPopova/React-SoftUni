@@ -11,8 +11,6 @@ export default function UserList() {
     userService.getAll()
     .then(result => {
       setUsers(result);
-      console.log(result);
-
     })
   }, []);
 
@@ -151,7 +149,7 @@ export default function UserList() {
             </thead>
             <tbody>
               {/* <!-- Table row component --> */}
-              <UseerListItem />
+              {users.map(user => <UseerListItem key={user._id} {...user} />)}
             </tbody>
           </table>
         </div>
@@ -161,7 +159,6 @@ export default function UserList() {
         <Pagination />
 
       </section>
-
     </>
   )
 }
