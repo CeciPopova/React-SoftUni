@@ -7,7 +7,20 @@ export default {
         const users = Object.values(result);
         return users;
     },
+
+    async getOne(userId) {
+        const responce = await fetch(`${baseUrl}/${userId}`);
+        const user = await responce.json();
+    
+        return user;
+    },
+
     async create(userData) {
+        const {country, city, street, streetNumber, ...postData} = userData;
+
+        postData.address = {country, city, street, streetNumber};
+        postData.createdAt = new Date().toISOString();
+        postData.updatedAt = new Date().toISOString();
         const res = await fetch(baseUrl, {
             method: 'POST',
             headers: {

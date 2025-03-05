@@ -1,19 +1,28 @@
 import moment from 'moment'
 
-export default function UseerListItem(props) {
+export default function UseerListItem({
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    imageUrl,
+    createdAt,
+    onDetailsClick,
+    _id
+}) {
 
     return (
         <>
             <tr>
                 <td>
-                    <img src={props.imageUrl}
-                        alt={`${props.firstName}'s profile`} className="image" />
+                    <img src={imageUrl}
+                        alt={`${firstName}'s profile`} className="image" />
                 </td>
-                <td>{props.firstName}</td>
-                <td>{props.lastName}</td>
-                <td>{props.email}</td>
-                <td>{props.phoneNumber}</td>
-                <td>{moment(props.createdAt).format('MMM DD YYYY h:mm A')}</td>
+                <td>{firstName}</td>
+                <td>{lastName}</td>
+                <td>{email}</td>
+                <td>{phoneNumber}</td>
+                <td>{moment(createdAt).format('MMM DD YYYY h:mm A')}</td>
 
                 <td className="actions">
                     <button className="btn edit-btn" title="Edit">
@@ -33,7 +42,7 @@ export default function UseerListItem(props) {
                             </path>
                         </svg>
                     </button>
-                    <button className="btn info-btn" title="Info">
+                    <button className="btn info-btn" title="Info" onClick={() => onDetailsClick(_id)}>
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info"
                             className="svg-inline--fa fa-info" role="img" xmlns="http://www.w3.org/2000/svg"
                             viewBox="-150 0 512 612">

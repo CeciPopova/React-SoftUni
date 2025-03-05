@@ -4,10 +4,12 @@ import Search from "./Search";
 import UseerListItem from "./UserListItem";
 import userService from "../services/userService";
 import UserCreate from "./UserCreate";
+import UserDetails from "./UserDetails";
 
 export default function UserList() {
   const [users, setUsers] = useState([]);
   const [showUserCreate, setShowUserCreate] = useState(false);
+  const [userIdDetails, setUserIdDetails] = useState();
 
   useEffect(() => {
     userService.getAll()
@@ -27,27 +29,38 @@ export default function UserList() {
 
   const saveCreateUserHandler = async (e) => {
     e.preventDefault();
-  
+
     const formData = new FormData(e.target);
     const userData = Object.fromEntries(formData);
 
-    const newUser= await userService.create(userData);
-    
-    setUsers(state => [ ...state, newUser ]);
+    const newUser = await userService.create(userData);
+    console.log(newUser);
+    setUsers(state => [...state, newUser]);
     setShowUserCreate(false);
 
   }
+
+  const userDetailsClickHandler = (userId) => {
+    setUserIdDetails(userId);
+  
+  }
+
   return (
     <>
       <section className="card users-container">
 
         <Search />
 
-        {showUserCreate &&
+        {showUserCreate && (
           <UserCreate
             onClose={closeCreateUserHandler}
             onSave={saveCreateUserHandler}
-          />}
+          />)}
+
+        {userIdDetails && (
+        <UserDetails
+          userId={userIdDetails}
+        />)}
 
         <div className="table-wrapper">
           <div>
@@ -178,7 +191,10 @@ export default function UserList() {
             </thead>
             <tbody>
               {/* <!-- Table row component --> */}
-              {users.map(user => <UseerListItem key={user._id} {...user} />)}
+              {users.map(user => <UseerListItem
+                key={user._id}
+                onDetailsClick={userDetailsClickHandler}
+                {...user} />)}
             </tbody>
           </table>
         </div>
