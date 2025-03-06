@@ -1,6 +1,7 @@
 import moment from 'moment'
 
 export default function UseerListItem({
+    _id,
     firstName,
     lastName,
     email,
@@ -8,7 +9,9 @@ export default function UseerListItem({
     imageUrl,
     createdAt,
     onDetailsClick,
-    _id
+    onDeleteClick,
+    onEditClick,                                         
+
 }) {
 
     return (
@@ -25,7 +28,7 @@ export default function UseerListItem({
                 <td>{moment(createdAt).format('MMM DD YYYY h:mm A')}</td>
 
                 <td className="actions">
-                    <button className="btn edit-btn" title="Edit">
+                    <button className="btn edit-btn" title="Edit" onClick={() => onEditClick(_id)}>
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen-to-square"
                             className="svg-inline--fa fa-pen-to-square" role="img" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 532 512">
@@ -34,7 +37,7 @@ export default function UseerListItem({
                             </path>
                         </svg>
                     </button>
-                    <button className="btn delete-btn" title="Delete">
+                    <button className="btn delete-btn" title="Delete" onClick={() => onDeleteClick(_id)}>
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash"
                             className="svg-inline--fa fa-trash" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 498 512">
                             <path fill="currentColor"

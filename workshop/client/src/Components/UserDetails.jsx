@@ -5,6 +5,7 @@ import moment from 'moment';
 
 export default function UserDetails({
     userId,
+    onClose,
 }) {
 console.log(userId);
     const [user, setUser] = useState({});
@@ -26,7 +27,7 @@ console.log(userId);
                     <div className="detail-container">
                         <header className="headers">
                             <h2>User Detail</h2>
-                            <button className="btn close">
+                            <button className="btn close" onClick={onClose}>
                                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="xmark"
                                     className="svg-inline--fa fa-xmark" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                                     <path fill="currentColor"
@@ -50,7 +51,7 @@ console.log(userId);
                                 <p>Phone Number: <strong>{user.phoneNumber}</strong></p>
                                 <p>
                                     Address:
-                                    <strong> {user.country}, {user.city}, {user.street} {user.streetNumber}</strong>
+                                    <strong> {user.address?.country}, {user.address?.city}, {user.address?.street} {user.address?.streetNumber}</strong>
                                 </p>
 
                                 <p>Created on: <strong>{moment(user.createdAt).format('MMM DD YYYY')}</strong></p>
